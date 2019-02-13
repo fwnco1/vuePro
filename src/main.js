@@ -22,6 +22,9 @@ import "./libs/mui/fonts/mui.ttf"
 import "./libs/mui/css/icons-extra.css"
 import "./libs/mui/fonts/mui-icons-extra.ttf"
 
+//全局引入评论子组件
+import comment from './components/comment.vue'
+Vue.component('comment',comment)
 
 Vue.config.productionTip = false
 

@@ -4,7 +4,7 @@
     <mt-header fixed title="固定在顶部"></mt-header>
 
     <!-- 组件展示区域 -->
-    <transition mode="out-in">
+    <transition >
       <router-view/>
     </transition>
     
@@ -45,30 +45,30 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
 
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
+  background-color: #fff;
   
 }
 .app-container{
   padding: 40px 0 50px 0;
+  overflow-x: hidden;
 }
-.v-center{
-  opacity: 0;
-  transform: translateX(100%)
+.v-enter {
+	opacity: 0;
+	transform: translateX(100%)
 }
-.v-leave-to{
-  opacity: 0;
-  transform: translateX(-100%);
-  position: absolute;
+.v-leave-to {
+	opacity: 0;
+	transform: translateX(-100%);
+	position: absolute;
 }
-.v-center-active,.v-leave-active{
-    
-    transition: all .5s ease
+.v-enter-active,.v-leave-active{
+		transition: all .5s ease
 }
 </style>
