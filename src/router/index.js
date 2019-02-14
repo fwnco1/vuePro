@@ -27,6 +27,8 @@ export default new Router({
     {path: '/search', component: Search},
     {path: '/home/newslist', component: newsList},
     {path: '/home/newsinfo/:id', component: newsInfo},
+    {path: '/home/photolist', component: photoList},
+    {path: '/home/photoinfo/:id', component: photoInfo},
   ],
   linkActiveClass:"mui-active"
 })
