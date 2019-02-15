@@ -1,6 +1,6 @@
 <template>
     <div>
-        
+        <h1>这是图片列表页</h1>
     </div>
 </template>
 
