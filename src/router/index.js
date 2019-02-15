@@ -16,6 +16,8 @@ Vue.filter('dateFormat',function(dateStr,pattern='YYYY-MM-DD HH:mm:ss'){
  import Search from '@/pages/search'
  import newsList from '@/pages/newsList'
  import newsInfo from '@/pages/newsInfo'
+ import photoList from '@/pages/photoList'
+ import photoInfo from '@/pages/photoInfo'
 Vue.use(Router)
 
 export default new Router({

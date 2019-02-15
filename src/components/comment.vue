@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import {Toast} from 'mint-ui'
 export default {
     data() {
         return {
@@ -41,17 +42,22 @@ export default {
         },
         postComment(){
             if (this.msg.trim().length==0) {
-                return alert('评论不能为空')
+                return Toast('评论不能为空')
             }
             this.$http.post('api/postcomment/'+this.id,{content:this.msg.trim()}).then(result=>{
                 if (result.body.status==0) {
-                    let cmt = {
-                        user_name:'23期匿名用户',
-                        add_time:Date.now(),
-                        content:this.msg.trim()
-                    }
-                    this.comments.unshift(cmt)
-                    // this.getComments()
+                    Toast(result.body.message)
+                    //方案1,数据拼接
+                    // let cmt = {
+                    //     user_name:'23期匿名用户',
+                    //     add_time:Date.now(),
+                    //     content:this.msg.trim()
+                    // }
+                    // this.comments.unshift(cmt)
+                    //方案2.重新获取数据,但是要清除之前的数据(推荐)
+                    this.comments=[]
+                    this.pageindex=1
+                    this.getComments()
                     this.msg=''
                 }
                 
