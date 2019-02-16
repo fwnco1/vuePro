@@ -18,6 +18,10 @@ Vue.filter('dateFormat',function(dateStr,pattern='YYYY-MM-DD HH:mm:ss'){
  import newsInfo from '@/pages/newsInfo'
  import photoList from '@/pages/photoList'
  import photoInfo from '@/pages/photoInfo'
+ import goodsList from '@/pages/goodsList'
+ import goodsInfo from '@/pages/goodsInfo'
+ import goodsDesc from '@/pages/goodsDesc'
+ import goodsComment from '@/pages/goodsComment'
 Vue.use(Router)
 
 export default new Router({
@@ -31,6 +35,10 @@ export default new Router({
     {path: '/home/newsinfo/:id', component: newsInfo},
     {path: '/home/photolist', component: photoList},
     {path: '/home/photoinfo/:id', component: photoInfo},
+    {path: '/home/goodslist', component: goodsList},
+    {path: '/home/goodsinfo/:id', component: goodsInfo,name:'goodsinfo'},
+    {path: '/home/goodsdesc/:id', component: goodsDesc,name:'goodsdesc'},
+    {path: '/home/goodscomment/:id', component: goodsComment,name:'goodscomment'},
   ],
   linkActiveClass:"mui-active"
 })

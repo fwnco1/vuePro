@@ -1,14 +1,15 @@
 <template>
   <div >
     <!-- 轮播图区域 -->
-    <mt-swipe :auto="3000" class="mt-swipe">
+    <!-- <mt-swipe :auto="3000" class="mt-swipe">
       <mt-swipe-item v-for="(item,index) in bannerlist" :key="index">
           <a :href="item.url">
             <img :src="item.img" >
           </a>
       </mt-swipe-item>
-
-    </mt-swipe>
+    </mt-swipe> -->
+    <!-- 抽取轮播图组件后 -->
+    <swiper :isfull='true' :banners="bannerlist"></swiper>
 
     <!--6宫格区域-->
     <ul class="mui-table-view mui-grid-view mui-grid-9">

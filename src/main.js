@@ -26,6 +26,10 @@ import "./libs/mui/fonts/mui-icons-extra.ttf"
 import comment from './components/comment.vue'
 Vue.component('comment',comment)
 
+//全局引入轮播图子组件
+import swiper from './components/swiper.vue'
+Vue.component('swiper',swiper)
+
 //全局引入缩略图插件
 import VuePreview from 'vue-pic-preview'
 Vue.use(VuePreview)
