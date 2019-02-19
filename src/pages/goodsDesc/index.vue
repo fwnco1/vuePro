@@ -37,8 +37,13 @@ export default {
             color: deeppink
         }
         .content {
+            p {
+                margin-bottom: 0;
+            }
             img{
-                width: 100%
+                width: 100%;
+                display: block
+
             }
         }
     }
