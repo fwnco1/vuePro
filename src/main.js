@@ -34,11 +34,32 @@ Vue.component('swiper',swiper)
 import VuePreview from 'vue-pic-preview'
 Vue.use(VuePreview)
 
+//全局引入vuex
+import Vuex from 'vuex'
+Vue.use(Vuex)
+
 Vue.config.productionTip = false
+
+//创建Vuex实例
+const store = new Vuex.Store({
+  state: {
+      totalCount:0
+  },
+  mutations: {
+      addToCar(){
+         // 加入购物车的业务逻辑:
+      // 1. 即将要加入的商品是否在购物车已存在, 
+      // 2. 如果存在只需要更新数量信息即可
+      // 3. 如果不存在只需要push进car数组即可
+        
+      }
+  },
+})
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   render:c => c(App),
 })

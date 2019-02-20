@@ -35,7 +35,7 @@
           </div>
           <div>
             <mt-button type="primary" size="small">立即购买</mt-button>
-            <mt-button type="danger" size="small" @click="addToShopCar">加入购物车</mt-button>
+            <mt-button type="danger" size="small" @click="addToShopCar" :disabled="ismove">加入购物车</mt-button>
           </div>
         </div>
       </div>
@@ -63,7 +63,8 @@ export default {
       banners: [],
       goodsinfo: {},
       ballFlag:false,
-      buyCount: 1
+      buyCount: 1,
+      ismove:false
     };
   },
   methods: {
@@ -89,6 +90,11 @@ export default {
     },
     addToShopCar(){
         this.ballFlag=!this.ballFlag
+        this.ismove = !this.ismove
+        setTimeout(()=>{
+            this.ismove =!this.ismove
+        },1000)
+        
     },
     beforEnter(el){
        el.style.transform = "translate(0, 0)";
@@ -111,6 +117,7 @@ export default {
     },
     afterEnter(el){
         this.ballFlag=!this.ballFlag
+        
     },
     countChange(){
         if (this.buyCount>this.goodsinfo.stock_quantity) {
