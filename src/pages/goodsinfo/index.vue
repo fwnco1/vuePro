@@ -1,15 +1,9 @@
 <template>
   <div class="goodsinfo-container">
+    <transition @before-enter="beforEnter" @enter="Enter" @after-enter="afterEnter">
+      <div class="ball" v-show="ballFlag" ref="ball"></div>
+    </transition>
 
-      <transition
-        @before-enter="beforEnter"
-        @enter="Enter"
-        @after-enter="afterEnter"
-      
-      >
-          <div class="ball" v-show="ballFlag" ref="ball"></div>
-      </transition>
-      
     <div class="mui-card">
       <div class="mui-card-content">
         <div class="mui-card-content-inner">
@@ -29,9 +23,19 @@
           </p>
           <div class="numbox">
             <span>购买数量:</span>&nbsp;
-            <input type="button" value="-" @click="buyCount>=2 && buyCount--" :disabled="buyCount==1">
+            <input
+              type="button"
+              value="-"
+              @click="buyCount>=2 && buyCount--"
+              :disabled="buyCount==1"
+            >
             <input type="number" value="buyCount" v-model="buyCount" @change="countChange">
-            <input type="button" value="+" @click="buyCount<goodsinfo.stock_quantity && buyCount++" :disabled="buyCount==goodsinfo.stock_quantity">
+            <input
+              type="button"
+              value="+"
+              @click="buyCount<goodsinfo.stock_quantity && buyCount++"
+              :disabled="buyCount==goodsinfo.stock_quantity"
+            >
           </div>
           <div>
             <mt-button type="primary" size="small">立即购买</mt-button>
@@ -62,9 +66,9 @@ export default {
       id: this.$route.params.id,
       banners: [],
       goodsinfo: {},
-      ballFlag:false,
+      ballFlag: false,
       buyCount: 1,
-      ismove:false
+      ismove: false
     };
   },
   methods: {
@@ -88,44 +92,52 @@ export default {
     goComment(id) {
       this.$router.push({ name: "goodscomment", params: { id } });
     },
-    addToShopCar(){
-        this.ballFlag=!this.ballFlag
-        this.ismove = !this.ismove
-        setTimeout(()=>{
-            this.ismove =!this.ismove
-        },1000)
-        this.$store.commit('addToCar',this.goodsinfo)
+    addToShopCar() {
+      this.ballFlag = !this.ballFlag;
+      this.ismove = !this.ismove;
+      setTimeout(() => {
+        this.ismove = !this.ismove;
+      }, 1000);
+      let goodinfo = {
+        //拼接出一个对象
+        id: this.goodsinfo.id,
+        count: this.buyCount,
+        price: this.goodsinfo.sell_price,
+        selected: true
+      }
+      this.$store.commit("addToCar", goodinfo);
     },
-    beforEnter(el){
-       el.style.transform = "translate(0, 0)";
+    beforEnter(el) {
+      el.style.transform = "translate(0, 0)";
     },
-    Enter(el,done){
-       el.offsetWidth;
+    Enter(el, done) {
+      el.offsetWidth;
 
-        let ballPosition=this.$refs.ball.getBoundingClientRect()
-        // console.log(ballPosition);
-        
-        let shopcarPosition=document.getElementById('badge').getBoundingClientRect()
-        // console.log(shopcarPosition);
-        
-        let xMOVE = shopcarPosition.left - ballPosition.left
-        let yMOVE = shopcarPosition.top - ballPosition.top
+      let ballPosition = this.$refs.ball.getBoundingClientRect();
+      // console.log(ballPosition);
 
-        el.style.transform = `translate(${xMOVE}px, ${yMOVE}px)`;
-        el.style.transition = "all 1s cubic-bezier(.4,-0.3,1,.68)";
+      let shopcarPosition = document
+        .getElementById("badge")
+        .getBoundingClientRect();
+      // console.log(shopcarPosition);
+
+      let xMOVE = shopcarPosition.left - ballPosition.left;
+      let yMOVE = shopcarPosition.top - ballPosition.top;
+
+      el.style.transform = `translate(${xMOVE}px, ${yMOVE}px)`;
+      el.style.transition = "all 1s cubic-bezier(.4,-0.3,1,.68)";
       done();
     },
-    afterEnter(el){
-        this.ballFlag=!this.ballFlag
-        
+    afterEnter(el) {
+      this.ballFlag = !this.ballFlag;
     },
-    countChange(){
-        if (this.buyCount>this.goodsinfo.stock_quantity) {
-            this.buyCount=this.goodsinfo.stock_quantity
-        }
-        if (this.buyCount<0) {
-            this.buyCount=1
-        }
+    countChange() {
+      if (this.buyCount > this.goodsinfo.stock_quantity) {
+        this.buyCount = this.goodsinfo.stock_quantity;
+      }
+      if (this.buyCount < 0) {
+        this.buyCount = 1;
+      }
     }
   },
   created() {
@@ -171,16 +183,15 @@ export default {
       padding: 0;
     }
   }
-  .ball{
-      width: 15px;
-      height: 15px;
-      background-color: red;
-      border-radius: 50%;
-      position: absolute;
-      z-index: 99;
-      left: 132px;
-      top: 385px;
-      
+  .ball {
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 99;
+    left: 132px;
+    top: 385px;
   }
 }
 </style>

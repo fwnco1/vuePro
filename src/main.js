@@ -41,19 +41,42 @@ Vue.use(Vuex)
 Vue.config.productionTip = false
 
 //创建Vuex实例
+let car = JSON.parse(localStorage.getItem('car')) || []
 const store = new Vuex.Store({
   state: {
-      totalCount:0
+      car:car,//将购物车中的商品的数据,存到car数组中,存储一些商品的对象
+             //,设计成这样{id:商品的id,count:商品的数量,price:商品的价格,selected:商品的选中状态}
   },
   mutations: {
-      addToCar(){
+      addToCar(state,goodinfo){
          // 加入购物车的业务逻辑:
       // 1. 即将要加入的商品是否在购物车已存在, 
       // 2. 如果存在只需要更新数量信息即可
       // 3. 如果不存在只需要push进car数组即可
-        
+      var flag = false
+          state.car.some(item=>{
+              if (item.id ==goodinfo.id) {
+                  item.count += parseInt(goodinfo.count)
+                  flag = true
+                  return true
+              }
+          })
+          //如果循环完毕,没有car中找到对应的商品,那么car就直接push这个对象
+          if (!flag) {
+              state.car.push(goodinfo)
+          }
+          localStorage.setItem('car',JSON.stringify(state.car))
       }
   },
+  getters:{
+      totalCount(state) {
+        let sum = 0
+         state.car.forEach(item=>{
+            sum += item.count
+         })
+         return sum
+      }
+  }
 })
 
 /* eslint-disable no-new */
