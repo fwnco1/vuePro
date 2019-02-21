@@ -1,21 +1,23 @@
 <template>
   <div class="shopcar-container">
     <div class="goodslist">
-      <div class="mui-card" v-for="item in goodsList" :key="item.id">
+      <div class="mui-card" v-for="(item,index) in goodsList" :key="item.id">
         <div class="mui-card-content">
           <div class="mui-card-content-inner">
-            <mt-switch></mt-switch>
+            <mt-switch :value="$store.getters.getGoodSelected[item.id]" 
+                        @change="goodSelectedChange(item.id,$store.getters.getGoodSelected[item.id])">
+            </mt-switch>
             <img :src="item.thumb_path">
             <div class="info">
               <h3>{{item.title}}</h3>
               <div class="numbox">
                 <span class="price">¥{{item.sell_price}}</span>
                 <div class="num">
-                  <input type="button" value="-">
-                  <input type="number" value="-">
-                  <input type="button" value="+">
+                  <input type="button" value="-" @click="subtract(item.id)">
+                  <input type="number" v-model="getGoodCount[item.id]">
+                  <input type="button" value="+" @click="increment(item.id)">
                 </div>
-                <a href="#">删除</a>
+                <a href="#" @click.prevent="remove(item.id,index)">删除</a>
               </div>
             </div>
           </div>
@@ -45,6 +47,7 @@ export default {
     data() {
         return {
             goodsList:[],// 购物车中所有商品的数据
+            getGoodCount:this.$store.getters.getGoodCount
         }
     },
     methods: {
@@ -66,6 +69,22 @@ export default {
                     this.goodsList = res.body.message
                 }
             })
+        },
+        subtract(id){
+            this.getGoodCount[id]>1 && this.getGoodCount[id]--
+            this.$store.commit('updateCount',{id,count:this.getGoodCount[id]})
+        },
+        increment(id){
+            this.getGoodCount[id]<this.$store.state.car[id].stock_quantity && this.getGoodCount[id]++
+            this.$store.commit('updateCount',{id,count:this.getGoodCount[id]})
+        },
+        remove(id,index){
+          this.goodsList.splice(index,1)
+          this.$store.commit('removeFromCar',id)
+        },
+        goodSelectedChange(id,selected){
+            // 修改vuex中的数据
+            this.$store.commit('updateSelected',{id,selected})
         }
     },
     created(){

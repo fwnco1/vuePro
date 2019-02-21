@@ -66,7 +66,37 @@ const store = new Vuex.Store({
               state.car.push(goodinfo)
           }
           localStorage.setItem('car',JSON.stringify(state.car))
-      }
+      },
+      //这里的数据只需要用到id 和 count即可
+      updateCount(state,goodinfo) {
+            state.car.some(item=>{
+                if (item.id==goodinfo.id) {
+                    item.count = goodinfo.count
+                }
+                return true
+            })
+        localStorage.setItem('car',JSON.stringify(state.car))
+      },
+      removeFromCar(state,id){
+          state.car.some((item,i)=>{
+              if (item.id==id) {
+                  state.car.splice(i,1)
+                  return true
+              }
+              
+          })
+          localStorage.setItem('car',JSON.stringify(state.car))
+      },
+      updateSelected(state, goodsInfo) { // 用于更新数量
+      state.car.some(item => {
+        if (item.id === goodsInfo.id) {
+          item.selected = !goodsInfo.selected
+          return true
+        }
+      })
+
+      localStorage.setItem('car', JSON.stringify(state.car))
+    },
   },
   getters:{
       totalCount(state) {
@@ -75,7 +105,25 @@ const store = new Vuex.Store({
             sum += item.count
          })
          return sum
-      }
+      },
+      getGoodCount(state){
+          //手动创造一个id对应count的 对象
+          // let o ={88:1,89:2}
+          let o ={}
+        state.car.forEach(item=>{
+            o[item.id] = item.count
+        })
+        return o 
+      },
+      getGoodSelected(state){
+          //手动创建一个id 对应selected 的对象
+          let o = {}
+        state.car.forEach(item=>{
+            o[item.id] = item.selected
+        })
+        return o
+      },
+      
   }
 })
 
