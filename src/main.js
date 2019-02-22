@@ -97,6 +97,7 @@ const store = new Vuex.Store({
 
       localStorage.setItem('car', JSON.stringify(state.car))
     },
+    
   },
   getters:{
       totalCount(state) {
@@ -121,9 +122,37 @@ const store = new Vuex.Store({
         state.car.forEach(item=>{
             o[item.id] = item.selected
         })
+        
+        
         return o
       },
-      
+      getGoodKucun(state){
+        //手动创建一个id 对应selected 的对象
+        let o = {}
+      state.car.forEach(item=>{
+          o[item.id] = item.kucun
+      })
+      console.log(o);
+      return o
+    },
+      getCarCount(state) {
+        let carCount = 0
+        state.car.forEach(item=>{
+          if (item.selected) {
+              carCount ++
+          }
+        })
+        return carCount
+      },
+      getTotalPrice(state) {  
+        let sum = 0
+        state.car.forEach(item=>{
+          if (item.selected) {
+            sum += parseInt(item.count*item.price)
+          }
+        })
+        return sum
+      }
   }
 })
 

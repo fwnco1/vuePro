@@ -103,6 +103,7 @@ export default {
         id: this.goodsinfo.id,
         count: this.buyCount,
         price: this.goodsinfo.sell_price,
+        kucun:this.goodsinfo.stock_quantity,
         selected: true
       }
       this.$store.commit("addToCar", goodinfo);

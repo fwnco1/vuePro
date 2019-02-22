@@ -31,8 +31,8 @@
             <div class="left">
                 <p>总计(不含运费)</p>
                 <p>已勾选商品
-                    <span class="red">1</span>件,总价
-                    <span class="red"></span> 元
+                    <span class="red">{{$store.getters.getCarCount}}</span> 件,总价
+                    <span class="red">{{$store.getters.getTotalPrice}}</span> 元
                 </p>
             </div>
             <mt-button type="danger">去结算</mt-button>
@@ -75,7 +75,9 @@ export default {
             this.$store.commit('updateCount',{id,count:this.getGoodCount[id]})
         },
         increment(id){
-            this.getGoodCount[id]<this.$store.state.car[id].stock_quantity && this.getGoodCount[id]++
+            console.log(this.$store.getters.getGoodKucun[id])
+            
+            this.getGoodCount[id]<this.$store.getters.getGoodKucun[id] && this.getGoodCount[id]++
             this.$store.commit('updateCount',{id,count:this.getGoodCount[id]})
         },
         remove(id,index){
