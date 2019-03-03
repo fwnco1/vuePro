@@ -127,7 +127,7 @@ const store = new Vuex.Store({
         return o
       },
       getGoodKucun(state){
-        //手动创建一个id 对应selected 的对象
+        //手动创建一个id 对应kucun 的对象
         let o = {}
       state.car.forEach(item=>{
           o[item.id] = item.kucun
